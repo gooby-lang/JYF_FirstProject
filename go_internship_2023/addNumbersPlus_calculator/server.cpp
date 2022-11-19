@@ -24,32 +24,38 @@ using adderPlusUltra::AddTwoNumbersBatchResponse;
 class AddTwoNumbersBatchServiceImpl final : public AddTwoNumbersBatch::Service {
     Status AddTwoNumbersBatch(ServerContext* context, const AddTwoNumbersBatchRequest* request,
                               AddTwoNumbersBatchResponse* reply) override {
-        std::string s[] = request->s();
-        int now = 0, sum = 0, lastNum = 0;
-        bool is_first = true;
-        string ans = "(";
+        std::string s = request->s();
+        //(1,2),(1,3)
+        AddTwoNumbersBatchResponse ans;
+        int number1 = 0, number2 = 0, tmp = 0;
+        bool nowIsFirst = false;
         for (int i = 0; i < s.size(); i ++ ) {
-            if (s[i] >= '0' && s[i] <= '9') {
-                now = now * 10 + s[i] - '0';
-            } else {
-                if (s[i] == ',' && is_first) {
-                    lastNum = now;
-                    now = 0;
-                    is_first = false;
+            if (s[i] == '(') {
+                nowIsFirst = true;
+            } else if (s[i] == ',') {
+                if (nowIsFirst) {
+                    tmp = number1;
+                    nowIsFirst = false;
                 } else {
-
+                    continue;
                 }
+            } else if (s[i] == ')') {
+                tmp += number2;
+                number1 = number2 = tmp = 0;
+                ans.add_res(tmp);
+            } else {
+                if (nowIsFirst) number1 = number1 * 10 + s[i] - '0';
+                else number2 = number2 * 10 + s[i] - '0';
             }
         }
-        sum += now;
-        reply->set_res(sum);
+        reply->set_res(ans);
         return Status::OK;
     }
 };
 
 void RunServer() {
     std::string server_address("0.0.0.0:50051");
-    AddNumbersServiceImpl service;
+    AddTwoNumbersBatchServiceImpl service;
 
     grpc::EnableDefaultHealthCheckService(true);
     grpc::reflection::InitProtoReflectionServerBuilderPlugin();

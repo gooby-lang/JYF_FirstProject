@@ -24,7 +24,7 @@ public:
 
     // Assembles the client's payload, sends it and presents the response back
     // from the server.
-    int AddTwoNumbersBatch(std::string &s) {
+    vector<int> AddTwoNumbersBatch(std::string &s) {
 
         // Data we are sending to the server.
         AddTwoNumbersBatchRequest request;
@@ -45,7 +45,7 @@ public:
         } else {
             std::cout << status.error_code() << ": " << status.error_message()
                       << std::endl;
-            return -1;
+            return vector<int>(1, 0);
         }
     }
 
@@ -62,7 +62,10 @@ int main(int argc, char** argv) {
     auto t = argv[1];
     std::string s;
     for (int i = 0; t[i]; i ++ ) s.push_back(t[i]);
-    auto res = adder.AddNumbers(s);
-    std::cout << "Sum is " << res << std::endl;
+    auto res = adder.AddNumbersBatch(s);
+    for (auto ite : res) {
+        std::cout << ite << ' ';
+    }
+    std::cout << std::endl;
     return 0;
 }

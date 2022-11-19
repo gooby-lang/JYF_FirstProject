@@ -7,9 +7,9 @@ service AddTwoNumbersBatch {
 }
 
 message AddTwoNumbersBatchRequest {
-  repeated string s = 1;
+  string s = 1;
 }
 
 message AddTwoNumbersBatchResponse {
-  string res = 2;
+  repeated int32 res = 2;
 }
