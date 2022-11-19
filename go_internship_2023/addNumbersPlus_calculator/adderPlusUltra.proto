@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package adderPlusUltra;
+
+service AddTwoNumbersBatch {
+  rpc AddTwoNumbersBatch (AddTwoNumbersBatchRequest) returns (AddTwoNumbersBatchResponse) {}
+}
+
+message AddTwoNumbersBatchRequest {
+  repeated string s = 1;
+}
+
+message AddTwoNumbersBatchResponse {
+  string res = 2;
+}

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package adderPlus;
+
+service AddNumbers {
+  rpc AddNumbers (AddNumbersRequest) returns (AddNumbersResponse) {}
+}
+
+message AddNumbersRequest {
+  string s = 1;
+}
+
+message AddNumbersResponse {
+  int32 res = 2;
+}
