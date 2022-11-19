@@ -24,7 +24,7 @@ public:
 
     // Assembles the client's payload, sends it and presents the response back
     // from the server.
-    vector<int> AddTwoNumbersBatch(std::string &s) {
+    google::protobuf::RepeatedField<int> AddTwoNumbersBatch(std::string &s) {
 
         // Data we are sending to the server.
         AddTwoNumbersBatchRequest request;
@@ -37,15 +37,15 @@ public:
         ClientContext context;
 
         // The actual RPC.
-        Status status = stub_->AddNumbers(&context, request, &reply);
-
+        Status status = stub_->AddTwoNumbersBatch(&context, request, &reply);
+        google::protobuf::RepeatedField<int> g;
         // Act upon its status.
         if (status.ok()) {
             return reply.res();
         } else {
             std::cout << status.error_code() << ": " << status.error_message()
                       << std::endl;
-            return vector<int>(1, 0);
+            return g;
         }
     }
 
@@ -61,9 +61,10 @@ int main(int argc, char** argv) {
 
     auto t = argv[1];
     std::string s;
+    std::cout << t << std::endl;
     for (int i = 0; t[i]; i ++ ) s.push_back(t[i]);
-    auto res = adder.AddNumbersBatch(s);
-    for (auto ite : res) {
+    auto ans = adder.AddTwoNumbersBatch(s);
+    for (auto ite : ans) {
         std::cout << ite << ' ';
     }
     std::cout << std::endl;
