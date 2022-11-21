@@ -43,7 +43,7 @@ public:
         if (status.ok()) {
             return reply.res();
         } else {
-            std::cout << status.error_code() << ": " << status.error_message()
+            std::cout << status.error_code() << ":=== " << status.error_message()
                       << std::endl;
             return g;
         }
@@ -60,13 +60,15 @@ int main(int argc, char** argv) {
             grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials()));
 
     auto t = argv[1];
-    std::string s;
-    std::cout << t << std::endl;
-    for (int i = 0; t[i]; i ++ ) s.push_back(t[i]);
-    auto ans = adder.AddTwoNumbersBatch(s);
-    for (auto ite : ans) {
-        std::cout << ite << ' ';
+    for (int i = 0; t[i]; i ++ ) {
+        std::cout << t[i];
     }
     std::cout << std::endl;
+    std::string s;
+    for (int i = 0; t[i]; i ++ ) s.push_back(t[i]);
+    std::cout << s << std::endl;
+//    auto ans = adder.AddTwoNumbersBatch(s);
+//    for (auto ite : ans) std::cout << ite << ' ';
+//    std::cout << std::endl;
     return 0;
 }
