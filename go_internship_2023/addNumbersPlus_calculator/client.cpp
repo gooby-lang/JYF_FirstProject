@@ -60,15 +60,11 @@ int main(int argc, char** argv) {
             grpc::CreateChannel(target_str, grpc::InsecureChannelCredentials()));
 
     auto t = argv[1];
-    for (int i = 0; t[i]; i ++ ) {
-        std::cout << t[i];
-    }
-    std::cout << std::endl;
     std::string s;
     for (int i = 0; t[i]; i ++ ) s.push_back(t[i]);
-    std::cout << s << std::endl;
-//    auto ans = adder.AddTwoNumbersBatch(s);
-//    for (auto ite : ans) std::cout << ite << ' ';
-//    std::cout << std::endl;
+//    std::cout << s << std::endl;
+    auto ans = adder.AddTwoNumbersBatch(s);
+    for (auto ite : ans) std::cout << ite << ' ';
+    std::cout << std::endl;
     return 0;
 }

@@ -41,7 +41,7 @@ class AddTwoNumbersBatchServiceImpl final : public AddTwoNumbersBatch::Service {
                 }
             } else if (s[i] == ')') {
                 tmp += number2;
-                reply->add_res(tmp);
+                reply.add_res(tmp);
                 number1 = number2 = tmp = 0;
             } else {
                 if (nowIsFirst) number1 = number1 * 10 + s[i] - '0';
