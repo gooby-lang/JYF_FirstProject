@@ -1,0 +1,11 @@
+cc_binary(
+    name="connect_server",
+    srcs=["connect.cpp"],
+    defines=["CPPHTTPLIB_OPENSSL_SUPPORT"],
+    visibility=["//visibility:public"],
+    deps=["@comm_github_mysql_cpp_connector//:httplib",
+          "@com_github_grpc_grpc//:grpc++",
+          "@com_github_grpc_grpc//:grpc++_reflection",
+          "//Almost_Prime/Calculator:calculator_cc_grpc"],
+    linkopts=["-lpthread"],
+)

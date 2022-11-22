@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package solution;
+
+service Calculator {
+  rpc CalculatorTheNumberOfPrimes (Input) returns (Output){}
+}
+
+message Input {
+  int32 n = 1;
+}
+message Output {
+  int32 answer = 2;
+}
